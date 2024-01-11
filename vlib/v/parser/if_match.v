@@ -348,6 +348,9 @@ fn (mut p Parser) match_expr() ast.MatchExpr {
 		if else_count > 1 {
 			p.error_with_pos('`match` can have only one `else` branch', pos)
 		}
+		if else_count > 0 && !is_else {
+			p.error_with_pos('`else` branch must be the last one in `match`', pos)
+		}
 		if p.tok.kind == .rcbr || (is_else && no_lcbr) {
 			break
 		}
